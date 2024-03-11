@@ -5,7 +5,11 @@ interface VideoProps {}
 // eslint-disable-next-line no-empty-pattern
 const Video: React.FC<VideoProps> = ({}) => {
   return (
-    <section>Video Conatiner</section>
+    <section id='video' className='video-container'>
+      <div className='video'>
+        Video Conatiner
+      </div>
+    </section>
   )
 }
 
