@@ -1,13 +1,13 @@
-.video__container {
+.media__container {
   min-height: 60vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 
-  img {
-    width: 20%;
-    border-radius: 50%;
+  video {
+    width: 40%;
+    border-radius: 10px;
   }
 
   h2 {
@@ -16,8 +16,8 @@
 }
 
 @media screen and (max-witdh: 768px) {
-  .video__container {
-    img {
+  .media__container {
+    video {
       width: 60%;
     }
   }
