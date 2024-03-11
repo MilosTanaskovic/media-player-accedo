@@ -1,6 +1,8 @@
 import React from "react";
-import { Footer, Header, Player, Video} from "./components"
+// Import Styles
+import "./styles/app.scss";
 // Adding components/organisms
+import { Footer, Header, Player, Video} from "./components"
 
 function App() {
   return (
