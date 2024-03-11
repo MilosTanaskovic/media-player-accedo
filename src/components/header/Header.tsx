@@ -8,7 +8,10 @@ interface HeaderProps {}
 // eslint-disable-next-line no-empty-pattern
 const Header: React.FC<HeaderProps> = ({}) => {
     return (
-        <nav className={styles.box}>Header</nav>
+        <nav className={styles.box}>
+            <h1>Media Player</h1>
+            <button>Playlist</button>
+        </nav>
     )
 }
 

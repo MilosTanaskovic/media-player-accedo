@@ -1,11 +1,14 @@
 import React from "react";
-import { Header} from "./components"
+import { Footer, Header, Player, Video} from "./components"
+// Adding components/organisms
 
 function App() {
   return (
-    <div>
-      <h1>Media Player</h1>
+    <div className="App">
       <Header />
+      <Video />
+      <Player />
+      <Footer />
     </div>
   );
 }
