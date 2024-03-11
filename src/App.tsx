@@ -1,25 +1,33 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, {useState} from "react";
+import React, { useState, useRef } from "react";
 // Import Styles
 import "./styles/app.scss";
 // Adding components/organisms
-import { Footer, Header, Player, Media} from "./components"
+import { Footer, Header, Player, Media } from "./components";
 // Import data
 import mediaData from "./data/media";
 import { MediaItem } from "./types/media";
+// Import context
+import { MediaProvider } from "./context/MediaContext";
+
 
 const App: React.FC = () => {
   const [media, setMedia] = useState<MediaItem[]>(mediaData());
   const [currentMedia, setCurrentMedia] = useState<MediaItem>(media[0]);
+
   console.log(media);
   return (
+    <MediaProvider>
     <div className="App">
       <Header />
-      <Media currentMedia={currentMedia} />
-      <Player />
+      <main>
+        <Media currentMedia={currentMedia} />
+        <Player currentMedia={currentMedia} />
+      </main>
       <Footer />
     </div>
+    </MediaProvider>
   );
-}
+};
 
 export default App;
