@@ -1,1 +1,1 @@
-export const box: string;
+export const header__container: string;

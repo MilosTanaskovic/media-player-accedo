@@ -11,6 +11,7 @@ interface PlaylistMediaItemProps {
   media: MediaItem[];
   setCurrentMedia: React.Dispatch<React.SetStateAction<MediaItem>>;
   isPlaying?: boolean;
+  setMedia?: React.Dispatch<React.SetStateAction<MediaItem[]>>;
 }
 
 const PlaylistMediaItem: React.FC<PlaylistMediaItemProps> = ({
@@ -18,6 +19,7 @@ const PlaylistMediaItem: React.FC<PlaylistMediaItemProps> = ({
   media,
   setCurrentMedia,
   isPlaying,
+  setMedia,
 }) => {
   const { cover, title, subtitle } = mediaItem;
 
@@ -29,10 +31,32 @@ const PlaylistMediaItem: React.FC<PlaylistMediaItemProps> = ({
     if (selectedMedia.length > 0) {
       setCurrentMedia(selectedMedia[0]);
     }
+
+    // Select/Add Active media
+    const newMedia = media?.map((state) => {
+      if (state.id === mediaItem.id) {
+        return { ...state, active: true };
+      } else {
+        return { ...state, active: false };
+      }
+    });
+    if (!setMedia) {
+      return;
+    }
+    setMedia(newMedia);
+
+    if (isPlaying) {
+      videoRef.current?.play();
+    }
   };
 
   return (
-    <div onClick={mediaSelectHandler} className={styles.playlist__media__item}>
+    <div
+      onClick={mediaSelectHandler}
+      className={`${styles.playlist__media__item} ${
+        mediaItem.active ? styles.selected : ""
+      }`}
+    >
       <img src={cover} alt={title} />
       <div className={styles.media__info}>
         <h3>{title}</h3>
