@@ -40,6 +40,7 @@ const PlaylistMediaItem: React.FC<PlaylistMediaItemProps> = ({
         return { ...state, active: false };
       }
     });
+    
     if (!setMedia) {
       return;
     }

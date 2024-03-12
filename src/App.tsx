@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 // Import Styles
 import "./styles/app.scss";
 // Adding components/organisms
@@ -12,7 +12,7 @@ import { MediaProvider } from "./context/MediaContext";
 
 const App: React.FC = () => {
   const [media, setMedia] = useState<MediaItem[]>(mediaData());
-  const [currentMedia, setCurrentMedia] = useState<MediaItem>(media[1]);
+  const [currentMedia, setCurrentMedia] = useState<MediaItem>(media[0]);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
 
   console.log(media);
@@ -26,6 +26,8 @@ const App: React.FC = () => {
             currentMedia={currentMedia}
             isPlaying={isPlaying}
             setIsPlaying={setIsPlaying}
+            media={media}
+            setCurrentMedia={setCurrentMedia}
           />
 
           <Playlist
