@@ -1,8 +1,13 @@
 /* eslint-disable react-refresh/only-export-components */
-import React, { createContext, useContext, useRef, ReactNode } from "react";
+import React, {useState, createContext, useContext, useRef, ReactNode } from "react";
 
 interface MediaContextType {
   videoRef: React.RefObject<HTMLVideoElement>;
+  timeUpdateHandler: React.EventHandler<React.SyntheticEvent<HTMLVideoElement>>;
+  videoInfo: {
+    currentTime: number;
+    duration: number;
+  }
 }
 
 const MediaContext = createContext<MediaContextType | undefined>(undefined);
@@ -12,10 +17,21 @@ interface MediaProviderProps {
 }
 
 export const MediaProvider: React.FC<MediaProviderProps> = ({ children }) => {
-  const videoRef = useRef<HTMLVideoElement>(null);
+    const [videoInfo, setVideoInfo] = useState({
+        currentTime: 0,
+        duration: 0,
+    });
+    const videoRef = useRef<HTMLVideoElement>(null);
+
+    const timeUpdateHandler = (e: React.SyntheticEvent<HTMLVideoElement>) => {
+        const current = e.currentTarget.currentTime;
+        const duration = e.currentTarget.duration;
+        console.log(current, duration);
+        setVideoInfo({ ...videoInfo, currentTime: current, duration: duration });
+    };
 
   return (
-    <MediaContext.Provider value={{ videoRef }}>
+    <MediaContext.Provider value={{ videoRef, timeUpdateHandler, videoInfo }}>
       {children}
     </MediaContext.Provider>
   );
