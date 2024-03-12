@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useRef } from "react";
+import React, { useEffect } from "react";
 
 import * as styles from "./styles/media.module.scss";
 import { MediaItem } from "../../types/media";
@@ -7,14 +7,20 @@ import { useMedia } from "../../context/MediaContext";
 
 interface MediaProps {
   currentMedia: MediaItem;
-  // videoRef: React.RefObject<HTMLVideoElement>;
 }
 
 // eslint-disable-next-line no-empty-pattern
 const Media: React.FC<MediaProps> = ({ currentMedia }) => {
-  const { id, title, subtitle, sources, cover } = currentMedia;
+  const { title, subtitle, sources } = currentMedia;
 
   const { videoRef, timeUpdateHandler } = useMedia();
+
+  useEffect(() => {
+   // when currentMedia changed, reload the video
+   if (videoRef.current) {
+     videoRef.current.load(); // this reload the video element
+   }
+  }, [currentMedia, videoRef]);
 
   return (
     <section id="video" className={styles.media__container}>

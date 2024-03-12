@@ -12,7 +12,7 @@ import { MediaProvider } from "./context/MediaContext";
 
 const App: React.FC = () => {
   const [media, setMedia] = useState<MediaItem[]>(mediaData());
-  const [currentMedia, setCurrentMedia] = useState<MediaItem>(media[0]);
+  const [currentMedia, setCurrentMedia] = useState<MediaItem>(media[1]);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
 
   console.log(media);
@@ -28,7 +28,7 @@ const App: React.FC = () => {
             setIsPlaying={setIsPlaying}
           />
 
-          <Playlist media={media} />
+          <Playlist media={media} setCurrentMedia={setCurrentMedia} isPlaying={isPlaying} />
         </main>
         <Footer />
       </div>
