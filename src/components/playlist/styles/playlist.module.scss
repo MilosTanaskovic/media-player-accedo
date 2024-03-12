@@ -8,9 +8,9 @@
   height: 100%;
   overflow: scroll;
   background: white;
-  // transform: translateX(-100%);
-  // transition: all 0.5s ease;
-  // opacity: 0;
+  transform: translateX(-100%);
+  transition: all 0.5s ease;
+  opacity: 0;
 
   h2 {
     padding: 2rem;
@@ -59,6 +59,15 @@
   background-color: rgba(155, 155, 155, 0.7);
   border-radius: 20px;
   border: transparent;
+}
+
+.selected {
+  background: rgb(165, 181, 228);
+}
+
+.active__playlist {
+    transform: translateX(0%);
+    opacity: 1;
 }
 
 @media screen and (max-width: 768px) {

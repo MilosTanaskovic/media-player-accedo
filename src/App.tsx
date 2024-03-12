@@ -28,7 +28,12 @@ const App: React.FC = () => {
             setIsPlaying={setIsPlaying}
           />
 
-          <Playlist media={media} setCurrentMedia={setCurrentMedia} isPlaying={isPlaying} />
+          <Playlist
+            media={media}
+            setCurrentMedia={setCurrentMedia}
+            isPlaying={isPlaying}
+            setMedia={setMedia}
+          />
         </main>
         <Footer />
       </div>

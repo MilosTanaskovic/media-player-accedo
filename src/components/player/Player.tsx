@@ -56,7 +56,7 @@ const Player: React.FC<PlayerProps> = ({
         <span>{getTime(videoInfo?.currentTime)}</span>
         <input
           min={0}
-          max={videoInfo?.duration}
+          max={videoInfo?.duration || 0}
           value={videoInfo?.currentTime}
           onChange={dragHandler}
           type="range"

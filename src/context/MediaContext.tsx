@@ -20,6 +20,8 @@ interface MediaContextType {
       duration: number;
     }>
   >;
+  playlistStatus: boolean;
+  setPlaylistStatus: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const MediaContext = createContext<MediaContextType | undefined>(undefined);
@@ -33,6 +35,7 @@ export const MediaProvider: React.FC<MediaProviderProps> = ({ children }) => {
     currentTime: 0,
     duration: 0,
   });
+  const [playlistStatus, setPlaylistStatus] = useState<boolean>(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const timeUpdateHandler = (e: React.SyntheticEvent<HTMLVideoElement>) => {
@@ -44,7 +47,14 @@ export const MediaProvider: React.FC<MediaProviderProps> = ({ children }) => {
 
   return (
     <MediaContext.Provider
-      value={{ videoRef, timeUpdateHandler, videoInfo, setVideoInfo }}
+      value={{
+        videoRef,
+        timeUpdateHandler,
+        videoInfo,
+        setVideoInfo,
+        playlistStatus,
+        setPlaylistStatus,
+      }}
     >
       {children}
     </MediaContext.Provider>
