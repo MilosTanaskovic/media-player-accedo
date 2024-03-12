@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, {useRef} from "react";
+import React, { useRef } from "react";
 
-import * as styles from "./styles/media.module.scss"
+import * as styles from "./styles/media.module.scss";
 import { MediaItem } from "../../types/media";
 import { useMedia } from "../../context/MediaContext";
 
@@ -11,15 +11,20 @@ interface MediaProps {
 }
 
 // eslint-disable-next-line no-empty-pattern
-const Media: React.FC<MediaProps> = ({currentMedia}) => {
+const Media: React.FC<MediaProps> = ({ currentMedia }) => {
   const { id, title, subtitle, sources, cover } = currentMedia;
 
-  const { videoRef } = useMedia();
+  const { videoRef, timeUpdateHandler } = useMedia();
 
   return (
     <section id="video" className={styles.media__container}>
       {/* Video component/molecule */}
-      <video autoPlay controls ref={videoRef}>
+      <video
+        autoPlay
+        ref={videoRef}
+        onTimeUpdate={timeUpdateHandler}
+        onLoadedMetadata={timeUpdateHandler}
+      >
         {sources.map((source, index) => (
           <source key={index} src={source} type="video/mp4" />
         ))}

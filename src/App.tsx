@@ -10,22 +10,26 @@ import { MediaItem } from "./types/media";
 // Import context
 import { MediaProvider } from "./context/MediaContext";
 
-
 const App: React.FC = () => {
   const [media, setMedia] = useState<MediaItem[]>(mediaData());
   const [currentMedia, setCurrentMedia] = useState<MediaItem>(media[0]);
+  const [isPlaying, setIsPlaying] = useState<boolean>(false);
 
   console.log(media);
   return (
     <MediaProvider>
-    <div className="App">
-      <Header />
-      <main>
-        <Media currentMedia={currentMedia} />
-        <Player currentMedia={currentMedia} />
-      </main>
-      <Footer />
-    </div>
+      <div className="App">
+        <Header />
+        <main>
+          <Media currentMedia={currentMedia} />
+          <Player
+            currentMedia={currentMedia}
+            isPlaying={isPlaying}
+            setIsPlaying={setIsPlaying}
+          />
+        </main>
+        <Footer />
+      </div>
     </MediaProvider>
   );
 };
