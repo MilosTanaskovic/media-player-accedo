@@ -11,10 +11,11 @@
   display: flex;
   input {
     width: 100%;
-    //   -webkit-appearance: none;
-    //   background: transparent;
+    // -webkit-appearance: none;
+    // background: transparent;
+    cursor: pointer;
   }
-  p {
+  span {
     padding: 1rem;
   }
 }
