@@ -3,7 +3,7 @@ import React, { useState, useRef } from "react";
 // Import Styles
 import "./styles/app.scss";
 // Adding components/organisms
-import { Footer, Header, Player, Media } from "./components";
+import { Footer, Header, Player, Media, Playlist } from "./components";
 // Import data
 import mediaData from "./data/media";
 import { MediaItem } from "./types/media";
@@ -27,6 +27,8 @@ const App: React.FC = () => {
             isPlaying={isPlaying}
             setIsPlaying={setIsPlaying}
           />
+
+          <Playlist media={media} />
         </main>
         <Footer />
       </div>
