@@ -9,10 +9,12 @@ import mediaData from "./data/media";
 import { MediaItem } from "./types/media";
 // Import context
 import { MediaProvider } from "./context/MediaContext";
+// Import utils
+import { loadPlaylistFromLocalStorage } from "./utils/localStorage";
 
 const App: React.FC = () => {
-  const [media, setMedia] = useState<MediaItem[]>(mediaData());
-  const [currentMedia, setCurrentMedia] = useState<MediaItem>(media[0]);
+  const [media, setMedia] = useState<MediaItem[]>(loadPlaylistFromLocalStorage() || mediaData());
+  const [currentMedia, setCurrentMedia] = useState<MediaItem>(media[0] || mediaData()[0]);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
 
   console.log(media);
