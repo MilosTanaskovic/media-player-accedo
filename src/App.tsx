@@ -17,7 +17,6 @@ const App: React.FC = () => {
   const [currentMedia, setCurrentMedia] = useState<MediaItem>(media[0] || mediaData()[0]);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
 
-  console.log(media);
   return (
     <MediaProvider>
       <div className="App">
