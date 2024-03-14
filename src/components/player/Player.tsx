@@ -117,7 +117,7 @@ const Player: React.FC<PlayerProps> = ({
           icon={backward}
         />
         <PlayerIcon
-          icon={isPlaying ? play : pause}
+          icon={isPlaying ? pause : play}
           onClick={playVideoHandler}
         />
         <PlayerIcon
