@@ -6,8 +6,15 @@ import React, {
   useRef,
   ReactNode,
 } from "react";
+import mediaData from "../data/media";
+import { loadPlaylistFromLocalStorage } from "../utils/localStorage";
+import { MediaItem } from "../types/media";
 
 interface MediaContextType {
+  media: MediaItem[];
+  setMedia: React.Dispatch<React.SetStateAction<MediaItem[]>>;
+  currentMedia: MediaItem;
+  setCurrentMedia: React.Dispatch<React.SetStateAction<MediaItem>>;
   videoRef: React.RefObject<HTMLVideoElement>;
   timeUpdateHandler: React.EventHandler<React.SyntheticEvent<HTMLVideoElement>>;
   videoInfo: {
@@ -35,13 +42,20 @@ interface MediaProviderProps {
 }
 
 export const MediaProvider: React.FC<MediaProviderProps> = ({ children }) => {
+  const [media, setMedia] = useState<MediaItem[]>(
+    loadPlaylistFromLocalStorage() || mediaData()
+  );
+  const [currentMedia, setCurrentMedia] = useState<MediaItem>(
+    media[0] || mediaData()[0]
+  );
   const [videoInfo, setVideoInfo] = useState({
     currentTime: 0,
     duration: 0,
   });
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const [playlistStatus, setPlaylistStatus] = useState<boolean>(false);
-  const [isCurrentMediaDeleted, setIsCurrentMediaDeleted] = useState<boolean>(false);
+  const [isCurrentMediaDeleted, setIsCurrentMediaDeleted] =
+    useState<boolean>(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const timeUpdateHandler = (e: React.SyntheticEvent<HTMLVideoElement>) => {
@@ -54,6 +68,10 @@ export const MediaProvider: React.FC<MediaProviderProps> = ({ children }) => {
   return (
     <MediaContext.Provider
       value={{
+        media,
+        setMedia,
+        currentMedia,
+        setCurrentMedia,
         videoRef,
         timeUpdateHandler,
         videoInfo,

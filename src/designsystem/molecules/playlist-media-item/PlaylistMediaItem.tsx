@@ -1,26 +1,25 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable no-empty-pattern */
 import React from "react";
-import { MediaItem } from "../../../types/media";
 
-import * as styles from "../../../components/playlist/styles/playlist.module.scss";
+import { MediaItem } from "../../../types/media";
 import { useMedia } from "../../../context/MediaContext";
 import { PlayerIcon } from "../../atoms";
 import { trash } from "../../../assets/intex";
 import { activePlaylistHandler } from "../../../utils/player";
 
+import * as styles from "../../../components/playlist/styles/playlist.module.scss";
+
 interface PlaylistMediaItemProps {
+  mediaItem: MediaItem;
   media: MediaItem[];
   setMedia: React.Dispatch<React.SetStateAction<MediaItem[]>>;
-  mediaItem: MediaItem;
   currentMedia: MediaItem;
   setCurrentMedia: React.Dispatch<React.SetStateAction<MediaItem>>;
 }
 
 const PlaylistMediaItem: React.FC<PlaylistMediaItemProps> = ({
+  mediaItem,
   media,
   setMedia,
-  mediaItem,
   currentMedia,
   setCurrentMedia,
 }) => {
@@ -55,7 +54,7 @@ const PlaylistMediaItem: React.FC<PlaylistMediaItemProps> = ({
     if (isPlaying && videoRef.current) videoRef.current.play();
   };
 
-  // remove media item from playlist
+  // Remove media item from playlist
   const deleteMediaItemHandler = () => {
     const newMedia = media?.filter((state) => state.id !== mediaItem.id);
 
@@ -69,7 +68,6 @@ const PlaylistMediaItem: React.FC<PlaylistMediaItemProps> = ({
       setIsCurrentMediaDeleted(true);
     }
   };
-
 
   return (
     <div className={styles.playlist__media__group}>

@@ -1,13 +1,12 @@
 import React from "react";
 
-import * as styles from "./styles/header.module.scss";
 import { useMedia } from "../../context/MediaContext";
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import * as styles from "./styles/header.module.scss";
+
 interface HeaderProps {}
 
-// eslint-disable-next-line no-empty-pattern
-const Header: React.FC<HeaderProps> = ({}) => {
+const Header: React.FC<HeaderProps> = () => {
   const { playlistStatus, setPlaylistStatus } = useMedia();
 
   return (

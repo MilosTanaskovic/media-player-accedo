@@ -1,8 +1,9 @@
 /* eslint-disable no-empty-pattern */
 import React, { useState } from "react";
 
-import * as styles from "./styles/playlistform.module.scss";
 import { isValidMediaUrl } from "../../../utils/form";
+
+import * as styles from "./styles/playlistform.module.scss";
 
 interface PlaylistFormProps {
   onAdd: (videoURL: string) => void;
@@ -42,7 +43,9 @@ const PlaylistForm: React.FC<PlaylistFormProps> = ({ onAdd }) => {
           onChange={(e) => setVideoUrl(e.target.value)}
           placeholder="Enter Video URL"
         />
-        {errorVideoMessage && <p className={styles.playlistform__error}>{errorVideoMessage}</p>}
+        {errorVideoMessage && (
+          <p className={styles.playlistform__error}>{errorVideoMessage}</p>
+        )}
         <button type="submit">Add to Playlist</button>
       </form>
     </div>

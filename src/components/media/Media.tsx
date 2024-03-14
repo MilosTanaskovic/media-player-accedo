@@ -1,33 +1,30 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect } from "react";
 
-import * as styles from "./styles/media.module.scss";
-import { MediaItem } from "../../types/media";
 import { useMedia } from "../../context/MediaContext";
 import { activePlaylistHandler } from "../../utils/player";
 
-interface MediaProps {
-  media: MediaItem[];
-  setMedia: React.Dispatch<React.SetStateAction<MediaItem[]>>;
-  currentMedia: MediaItem;
-  setCurrentMedia: React.Dispatch<React.SetStateAction<MediaItem>>;
-}
+import * as styles from "./styles/media.module.scss";
 
-// eslint-disable-next-line no-empty-pattern
-const Media: React.FC<MediaProps> = ({
-  media,
-  setMedia,
-  currentMedia,
-  setCurrentMedia,
-}) => {
+interface MediaProps {}
+
+const Media: React.FC<MediaProps> = () => {
+  const {
+    media,
+    setMedia,
+    currentMedia,
+    setCurrentMedia,
+    videoRef,
+    timeUpdateHandler,
+    isCurrentMediaDeleted,
+    isPlaying,
+  } = useMedia();
+
   const { title, subtitle, sources } = currentMedia;
-
-  const { videoRef, timeUpdateHandler, isCurrentMediaDeleted, isPlaying } = useMedia();
 
   useEffect(() => {
     // when currentMedia changed, reload the video
     if (videoRef.current) {
-      videoRef.current.load(); // this reload the video element
+      videoRef.current.load();
     }
   }, [currentMedia, videoRef]);
 
@@ -41,7 +38,8 @@ const Media: React.FC<MediaProps> = ({
       currentIndex === -1 ||
       !media ||
       media.length <= 1
-    ) return;
+    )
+      return;
 
     const nextIndex = (currentIndex + 1) % media.length;
     const nextMedia = media[nextIndex];
