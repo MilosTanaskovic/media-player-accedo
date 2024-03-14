@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useState } from "react";
+import React from "react";
 import { PlayerIcon } from "../../designsystem/atoms";
 import {
   previous,
@@ -36,7 +36,7 @@ const Player: React.FC<PlayerProps> = ({
   setIsPlaying,
   setCurrentMedia,
 }) => {
-  const { videoRef, videoInfo, setVideoInfo } = useMedia();
+  const { videoRef, videoInfo, setVideoInfo, isCurrentMediaDeleted } = useMedia();
 
   const playVideoHandler = () => {
     // play video
@@ -89,6 +89,10 @@ const Player: React.FC<PlayerProps> = ({
       }
     }
   };
+
+  if (isCurrentMediaDeleted) {
+    return <></>;
+  }
 
   return (
     <section id="player" className={styles.player__container}>

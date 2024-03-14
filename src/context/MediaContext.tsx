@@ -22,6 +22,8 @@ interface MediaContextType {
   >;
   playlistStatus: boolean;
   setPlaylistStatus: React.Dispatch<React.SetStateAction<boolean>>;
+  isCurrentMediaDeleted: boolean;
+  setIsCurrentMediaDeleted: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const MediaContext = createContext<MediaContextType | undefined>(undefined);
@@ -36,6 +38,7 @@ export const MediaProvider: React.FC<MediaProviderProps> = ({ children }) => {
     duration: 0,
   });
   const [playlistStatus, setPlaylistStatus] = useState<boolean>(false);
+  const [isCurrentMediaDeleted, setIsCurrentMediaDeleted] = useState<boolean>(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const timeUpdateHandler = (e: React.SyntheticEvent<HTMLVideoElement>) => {
@@ -54,6 +57,8 @@ export const MediaProvider: React.FC<MediaProviderProps> = ({ children }) => {
         setVideoInfo,
         playlistStatus,
         setPlaylistStatus,
+        isCurrentMediaDeleted,
+        setIsCurrentMediaDeleted,
       }}
     >
       {children}

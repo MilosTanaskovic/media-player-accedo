@@ -17,9 +17,20 @@
   }
 }
 
+.playlist__media__group {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  &>img {
+    cursor: url("https://i.stack.imgur.com/bUGV0.png"), auto;
+    margin: 5px;
+  }
+}
+
 .playlist__media__item {
   display: flex;
   align-items: center;
+  width: 100%;
   padding: 1rem 2rem 1rem 2rem;
   cursor: pointer;
   transition: all 0.75s ease-out;
@@ -28,15 +39,19 @@
     width: 30%;
     height: 45px;
   }
+
   &:hover {
     background: rgb(235, 235, 235);
   }
 }
+
 .media__info {
   padding-left: 1rem;
+
   h3 {
     font-size: 1rem;
   }
+
   h4 {
     font-size: 0.7rem;
   }
@@ -53,9 +68,11 @@
 *::-webkit-scrollbar {
   width: 5px;
 }
+
 *::-webkit-scrollbar-track {
   background: transparent;
 }
+
 *::-webkit-scrollbar-thumb {
   background-color: rgba(155, 155, 155, 0.7);
   border-radius: 20px;
@@ -67,8 +84,8 @@
 }
 
 .active__playlist {
-    transform: translateX(0%);
-    opacity: 1;
+  transform: translateX(0%);
+  opacity: 1;
 }
 
 @media screen and (max-width: 768px) {

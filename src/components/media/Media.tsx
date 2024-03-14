@@ -13,7 +13,7 @@ interface MediaProps {
 const Media: React.FC<MediaProps> = ({ currentMedia }) => {
   const { title, subtitle, sources } = currentMedia;
 
-  const { videoRef, timeUpdateHandler } = useMedia();
+  const { videoRef, timeUpdateHandler, isCurrentMediaDeleted } = useMedia();
 
   useEffect(() => {
    // when currentMedia changed, reload the video
@@ -21,6 +21,10 @@ const Media: React.FC<MediaProps> = ({ currentMedia }) => {
      videoRef.current.load(); // this reload the video element
    }
   }, [currentMedia, videoRef]);
+
+  if (isCurrentMediaDeleted) {
+    return <p className="info">The selected media has been deleted! <br />Please select a media to play!</p>;
+  }
 
   return (
     <section id="video" className={styles.media__container}>

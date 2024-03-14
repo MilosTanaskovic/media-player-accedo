@@ -10,6 +10,7 @@ import { savePlaylistToLocalStorage } from "../../utils/localStorage";
 
 interface PlaylistProps {
   media: MediaItem[];
+  currentMedia: MediaItem;
   setCurrentMedia: React.Dispatch<React.SetStateAction<MediaItem>>;
   isPlaying?: boolean;
   setMedia?: React.Dispatch<React.SetStateAction<MediaItem[]>>;
@@ -17,6 +18,7 @@ interface PlaylistProps {
 
 const Playlist: React.FC<PlaylistProps> = ({
   media,
+  currentMedia,
   setCurrentMedia,
   isPlaying,
   setMedia,
@@ -46,6 +48,7 @@ const Playlist: React.FC<PlaylistProps> = ({
       setMedia([...media, newMedia]);
     }
   };
+
   return (
     <section
       id="playlist"
@@ -54,12 +57,13 @@ const Playlist: React.FC<PlaylistProps> = ({
       }`}
     >
       <h2>Playlist</h2>
-      <div className="playlist__media">
+      <div className="">
         {media?.map((mediaItem) => (
           <PlaylistMediaItem
             key={mediaItem.id}
             media={media}
             mediaItem={mediaItem}
+            currentMedia={currentMedia}
             setCurrentMedia={setCurrentMedia}
             isPlaying={isPlaying}
             setMedia={setMedia}
