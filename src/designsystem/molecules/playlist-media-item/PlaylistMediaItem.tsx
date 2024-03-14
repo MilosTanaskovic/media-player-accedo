@@ -7,33 +7,33 @@ import * as styles from "../../../components/playlist/styles/playlist.module.scs
 import { useMedia } from "../../../context/MediaContext";
 import { PlayerIcon } from "../../atoms";
 import { trash } from "../../../assets/intex";
+import { activePlaylistHandler } from "../../../utils/player";
 
 interface PlaylistMediaItemProps {
-  mediaItem: MediaItem;
   media: MediaItem[];
+  setMedia: React.Dispatch<React.SetStateAction<MediaItem[]>>;
+  mediaItem: MediaItem;
   currentMedia: MediaItem;
   setCurrentMedia: React.Dispatch<React.SetStateAction<MediaItem>>;
-  isPlaying?: boolean;
-  setMedia?: React.Dispatch<React.SetStateAction<MediaItem[]>>;
 }
 
 const PlaylistMediaItem: React.FC<PlaylistMediaItemProps> = ({
-  mediaItem,
   media,
+  setMedia,
+  mediaItem,
   currentMedia,
   setCurrentMedia,
-  isPlaying,
-  setMedia,
 }) => {
   const { cover, title, subtitle } = mediaItem;
 
-  const { videoRef, setIsCurrentMediaDeleted } = useMedia();
+  const { videoRef, setIsCurrentMediaDeleted, isPlaying } = useMedia();
 
-  const mediaSelectHandler = () => {
+  const mediaSelectHandler = async () => {
     const selectedMedia = media.filter((state) => state.id === mediaItem.id);
 
     if (selectedMedia.length > 0) {
-      setCurrentMedia(selectedMedia[0]);
+      await setCurrentMedia(selectedMedia[0]);
+      activePlaylistHandler(selectedMedia, media, setMedia);
       setIsCurrentMediaDeleted(false);
     }
 
@@ -51,9 +51,8 @@ const PlaylistMediaItem: React.FC<PlaylistMediaItemProps> = ({
     }
     setMedia(newMedia);
 
-    if (isPlaying) {
-      videoRef.current?.play();
-    }
+    // Check if video is playing
+    if (isPlaying && videoRef.current) videoRef.current.play();
   };
 
   // remove media item from playlist

@@ -14,33 +14,28 @@ import {
 import * as styles from "./styles/player.module.scss";
 import { MediaItem } from "../../types/media";
 import { useMedia } from "../../context/MediaContext";
-import { getTime } from "../../utils/player";
+import { activePlaylistHandler, getTime } from "../../utils/player";
 
 interface PlayerProps {
   media?: MediaItem[];
+  setMedia: React.Dispatch<React.SetStateAction<MediaItem[]>>;
   currentMedia: MediaItem;
-  isPlaying?: boolean;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  setIsPlaying?: ((isPlaying: boolean) => void) | undefined | any;
   setCurrentMedia?:
     | React.Dispatch<React.SetStateAction<MediaItem>>
     | undefined
     | any;
 }
 
-// eslint-disable-next-line no-empty-pattern
 const Player: React.FC<PlayerProps> = ({
   media,
+  setMedia,
   currentMedia,
-  isPlaying,
-  setIsPlaying,
   setCurrentMedia,
 }) => {
-  const { videoRef, videoInfo, setVideoInfo, isCurrentMediaDeleted } = useMedia();
+  const { videoRef, videoInfo, setVideoInfo, isCurrentMediaDeleted, isPlaying, setIsPlaying } = useMedia();
 
   const playVideoHandler = () => {
     // play video
-    console.log(videoRef);
     if (isPlaying) {
       videoRef.current?.pause();
       setIsPlaying(!isPlaying);
@@ -65,16 +60,21 @@ const Player: React.FC<PlayerProps> = ({
     );
 
     if (direction === "skip-next" && media && currentIndex !== undefined) {
-      setCurrentMedia(media[(currentIndex + 1) % media.length]);
+      await setCurrentMedia(media[(currentIndex + 1) % media.length]);
+      activePlaylistHandler((media[(currentIndex + 1) % media.length]), media, setMedia);
     }
 
     if (direction === "skip-previous" && media && currentIndex !== undefined) {
       if ((currentIndex - 1) % media.length === -1) {
-        setCurrentMedia(media[media.length - 1]);
+        await setCurrentMedia(media[media.length - 1]);
+        activePlaylistHandler(media[media.length - 1], media, setMedia);
+        if (isPlaying && videoRef.current) videoRef.current.play();  
         return;
       }
-      setCurrentMedia(media[(currentIndex - 1) % media.length]);
+      await setCurrentMedia(media[(currentIndex - 1) % media.length]);
+      activePlaylistHandler((media[(currentIndex - 1) % media.length]), media, setMedia);
     }
+    if (isPlaying && videoRef.current) videoRef.current.play(); 
   };
 
   // Fast Backward and Forward
@@ -93,6 +93,7 @@ const Player: React.FC<PlayerProps> = ({
   if (isCurrentMediaDeleted) {
     return <></>;
   }
+  
 
   return (
     <section id="player" className={styles.player__container}>
