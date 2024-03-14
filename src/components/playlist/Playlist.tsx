@@ -1,27 +1,18 @@
-/* eslint-disable no-empty-pattern */
 import React, { useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
+
 import { PlaylistForm, PlaylistMediaItem } from "../../designsystem/molecules";
 import { MediaItem } from "../../types/media";
-
-import * as styles from "./styles/playlist.module.scss";
 import { useMedia } from "../../context/MediaContext";
 import { savePlaylistToLocalStorage } from "../../utils/localStorage";
 
-interface PlaylistProps {
-  media: MediaItem[];
-  currentMedia: MediaItem;
-  setCurrentMedia: React.Dispatch<React.SetStateAction<MediaItem>>;
-  setMedia?: React.Dispatch<React.SetStateAction<MediaItem[]>>;
-}
+import * as styles from "./styles/playlist.module.scss";
 
-const Playlist: React.FC<PlaylistProps> = ({
-  media,
-  currentMedia,
-  setCurrentMedia,
-  setMedia,
-}) => {
-  const { playlistStatus } = useMedia();
+interface PlaylistProps {}
+
+const Playlist: React.FC<PlaylistProps> = () => {
+  const { media, currentMedia, setCurrentMedia, setMedia, playlistStatus } =
+    useMedia();
 
   // Save media to local storage whenever it changes
   useEffect(() => {
@@ -55,15 +46,15 @@ const Playlist: React.FC<PlaylistProps> = ({
       }`}
     >
       <h2>Playlist</h2>
-      <div className="">
+      <div>
         {media?.map((mediaItem) => (
           <PlaylistMediaItem
             key={mediaItem.id}
-            media={media}
             mediaItem={mediaItem}
+            media={media}
+            setMedia={setMedia || (() => {})}
             currentMedia={currentMedia}
             setCurrentMedia={setCurrentMedia}
-            setMedia={setMedia || (() => {})}
           />
         ))}
       </div>
