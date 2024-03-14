@@ -34,6 +34,7 @@ const App: React.FC = () => {
 
           <Playlist
             media={media}
+            currentMedia={currentMedia}
             setCurrentMedia={setCurrentMedia}
             isPlaying={isPlaying}
             setMedia={setMedia}
