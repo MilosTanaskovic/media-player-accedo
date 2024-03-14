@@ -14,6 +14,8 @@ interface MediaContextType {
     currentTime: number;
     duration: number;
   };
+  isPlaying: boolean;
+  setIsPlaying: React.Dispatch<React.SetStateAction<boolean>>;
   setVideoInfo: React.Dispatch<
     React.SetStateAction<{
       currentTime: number;
@@ -37,6 +39,7 @@ export const MediaProvider: React.FC<MediaProviderProps> = ({ children }) => {
     currentTime: 0,
     duration: 0,
   });
+  const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const [playlistStatus, setPlaylistStatus] = useState<boolean>(false);
   const [isCurrentMediaDeleted, setIsCurrentMediaDeleted] = useState<boolean>(false);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -54,6 +57,8 @@ export const MediaProvider: React.FC<MediaProviderProps> = ({ children }) => {
         videoRef,
         timeUpdateHandler,
         videoInfo,
+        isPlaying,
+        setIsPlaying,
         setVideoInfo,
         playlistStatus,
         setPlaylistStatus,

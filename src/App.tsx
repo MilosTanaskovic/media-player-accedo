@@ -13,21 +13,28 @@ import { MediaProvider } from "./context/MediaContext";
 import { loadPlaylistFromLocalStorage } from "./utils/localStorage";
 
 const App: React.FC = () => {
-  const [media, setMedia] = useState<MediaItem[]>(loadPlaylistFromLocalStorage() || mediaData());
-  const [currentMedia, setCurrentMedia] = useState<MediaItem>(media[0] || mediaData()[0]);
-  const [isPlaying, setIsPlaying] = useState<boolean>(false);
+  const [media, setMedia] = useState<MediaItem[]>(
+    loadPlaylistFromLocalStorage() || mediaData()
+  );
+  const [currentMedia, setCurrentMedia] = useState<MediaItem>(
+    media[0] || mediaData()[0]
+  );
 
   return (
     <MediaProvider>
       <div className="App">
         <Header />
         <main>
-          <Media currentMedia={currentMedia} />
+          <Media
+            media={media}
+            setMedia={setMedia}
+            currentMedia={currentMedia}
+            setCurrentMedia={setCurrentMedia}
+          />
           <Player
             currentMedia={currentMedia}
-            isPlaying={isPlaying}
-            setIsPlaying={setIsPlaying}
             media={media}
+            setMedia={setMedia}
             setCurrentMedia={setCurrentMedia}
           />
 
@@ -35,7 +42,6 @@ const App: React.FC = () => {
             media={media}
             currentMedia={currentMedia}
             setCurrentMedia={setCurrentMedia}
-            isPlaying={isPlaying}
             setMedia={setMedia}
           />
         </main>

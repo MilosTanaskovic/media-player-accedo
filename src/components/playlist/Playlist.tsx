@@ -12,7 +12,6 @@ interface PlaylistProps {
   media: MediaItem[];
   currentMedia: MediaItem;
   setCurrentMedia: React.Dispatch<React.SetStateAction<MediaItem>>;
-  isPlaying?: boolean;
   setMedia?: React.Dispatch<React.SetStateAction<MediaItem[]>>;
 }
 
@@ -20,7 +19,6 @@ const Playlist: React.FC<PlaylistProps> = ({
   media,
   currentMedia,
   setCurrentMedia,
-  isPlaying,
   setMedia,
 }) => {
   const { playlistStatus } = useMedia();
@@ -65,8 +63,7 @@ const Playlist: React.FC<PlaylistProps> = ({
             mediaItem={mediaItem}
             currentMedia={currentMedia}
             setCurrentMedia={setCurrentMedia}
-            isPlaying={isPlaying}
-            setMedia={setMedia}
+            setMedia={setMedia || (() => {})}
           />
         ))}
       </div>
