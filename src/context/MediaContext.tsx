@@ -61,7 +61,6 @@ export const MediaProvider: React.FC<MediaProviderProps> = ({ children }) => {
   const timeUpdateHandler = (e: React.SyntheticEvent<HTMLVideoElement>) => {
     const current = e.currentTarget.currentTime;
     const duration = e.currentTarget.duration;
-    console.log(current, duration);
     setVideoInfo({ ...videoInfo, currentTime: current, duration: duration });
   };
 

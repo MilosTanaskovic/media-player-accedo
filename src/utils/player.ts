@@ -11,7 +11,6 @@ export const activePlaylistHandler = (
   media: MediaItem[],
   setMedia: React.Dispatch<React.SetStateAction<MediaItem[]>>
 ) => {
-  console.log(typeof nextPreve);
   const activeMedia = media?.map((mediaItem) => {
     if (mediaItem.id === nextPreve.id) {
       return {
