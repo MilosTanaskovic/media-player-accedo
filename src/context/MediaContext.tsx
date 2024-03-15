@@ -41,12 +41,15 @@ interface MediaProviderProps {
   children: ReactNode;
 }
 
+const initialMediaList =
+  loadPlaylistFromLocalStorage().length > 0
+    ? loadPlaylistFromLocalStorage()
+    : mediaData();
+
 export const MediaProvider: React.FC<MediaProviderProps> = ({ children }) => {
-  const [media, setMedia] = useState<MediaItem[]>(
-    loadPlaylistFromLocalStorage() || mediaData()
-  );
+  const [media, setMedia] = useState<MediaItem[]>(initialMediaList);
   const [currentMedia, setCurrentMedia] = useState<MediaItem>(
-    media[0] || mediaData()[0]
+    initialMediaList[0] || null
   );
   const [videoInfo, setVideoInfo] = useState({
     currentTime: 0,
