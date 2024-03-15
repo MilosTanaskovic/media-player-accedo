@@ -18,6 +18,13 @@ h4 {
   color: rgb(100, 100, 100);
 }
 
+.App {
+  transition: all .5s ease;
+}
+
+.playlist-active {
+  margin-left: 30%;
+}
 .info {
   position: fixed;
   top: 50%;
@@ -26,7 +33,3 @@ h4 {
   color: rgb(54, 54, 54);
 
 }
-
-// @import fils partials
-@import "./video";
-@import "./player";
